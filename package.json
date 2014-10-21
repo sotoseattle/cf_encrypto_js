@@ -1,0 +1,14 @@
+{
+  "name": "encrypto-soto",
+  "version": "0.0.1",
+  "description": "Encryptor",
+  "author": "Javier Soto <sotoseattle@gmail.com>",
+
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*",
+    "grunt": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-watch": "*"
+  }
+}
