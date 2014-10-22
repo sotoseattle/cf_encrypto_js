@@ -11,35 +11,37 @@
     <br>
     <button id="encrypt">Lock Down</button>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
-
     <script>
       var encoder = {
-        setMessage: function() {
-
+        setMessage: function() { return $("textarea#message").val(); },
+        getPassword: function() { return window.prompt('Enter password', ''); },
+        setUrl: function(cripto_mssg) {
+          return 'your message is available to anyone with the passphrase at:\n\n' +
+          'http://localhost:4000/' + cripto_mssg;
         },
-        getPassword: function() {
-
-        },
-        setUrl: function() {
-
-        },
-        replaceMessageWithUrl: function () {
-
-        },
-        encrypt: function() {
-          cypher = CryptoJS.AES.encrypt(this.message, this.password)
-          console.log("Verified: " +
-            CryptoJS.AES.decrypt(cypher, this.password).toString(CryptoJS.enc.Utf8))
-          return cypher
-        },
+        replaceMessageWithUrl: function(cripto_url) { return $("textarea#message").val(cripto_url); },
+        encrypt: function(mssg, pass) { return CryptoJS.AES.encrypt(mssg, pass); },
         protect: function() {
-          this.setMessage()
-          this.getPassword()
-          this.setUrl()
-          this.replaceMessageWithUrl()
+          return this.replaceMessageWithUrl(
+            this.setUrl(
+              this.encrypt(this.setMessage(), this.getPassword())));
+        },
+        discover: function() {
+          var cripto_mssg, r;
+          r = /http:\/\/localhost:4000\/(.+)/;
+          cripto_mssg = $(location)[0].href.match(r);
+          return;
         }
-      }
+      };
+    </script>
+    <script>
+      $(document).ready (function(){
+        $("#encrypt").on('click', function(a){
+          encoder.protect();
+        });
+      });
     </script>
   </body>
 </html>
