@@ -1,23 +1,57 @@
 
-I have used node.js with Express server. It serves 2 routes, the master/index.html (encoder page), and any other one, which returns the decoder page with the JS to pick url and decode.
 
-I used CoffeeScript to code things though I ended up inserting the resulting compiled JS into the pages directly.
-Therefore my doubt:
+### The server
 
-How do I extract the JS to modules/files so I can:
+After trying with Node (with Express) I have decided to end up using a very thin Sinatra as a server.
 
-- test the functionality in each module
-- load the encoder object in the index html with require ??
-- insert the decoder object in the decode html (I am passing the file itself ??)
+```ruby
+require 'sinatra'
+require 'sinatra/reloader' if :development
 
-I set up grunt and tests but I didn't make tests because of the above reason.
+get '/' do
+  erb :index
+end
 
-### How to run
+get '/encode?' do
+  erb :encode
+end
 
-At root start server
+get '/decode/*' do
+  erb :decode
+end
+```
+
+Only 3 routes, and 3 very simple associated views.
+
+Start the server like this:
 
 ```
-$ node server_thingy.js
+$ ruby nsa_server.rb
 ```
 
-In browser go 'http://localhost:4000/master/index.html'
+### The JavaScript Code
+
+I used CoffeeScript to code things and Grunt to compile them into two JS modules, one for encoding and a different for decoding.
+
+Browserify allows me to bundle them both for the client side. I keep both modules plus the bundle available at the public/javascript folder.
+
+It is important to note that when browserifying,
+
+1- you need to specify the flag -r to make be able to call the module object into your html.
+2- from where you browserify and where you create the bundle will determine how you call the require in terms of path.
+
+The way I include the module inside the view is as follows:
+
+```html
+<script src="./javascript/bundle.js"></script>
+<script>
+  var encoder = require('./encoder.js');
+</script>
+```
+
+To play with it, after having started your server in port 4567, got in the browser to 'http://localhost:4567/'
+
+### The Tests
+
+I use Mocha with Chai and Grunt
+

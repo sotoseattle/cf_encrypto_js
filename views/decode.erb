@@ -13,24 +13,15 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+
+    <script src="/javascript/bundle.js"></script>
     <script>
-      var encoder = {
-        setMessage: function(str) { $("textarea#message").val(str); },
-        getPassword: function() { return window.prompt('Enter password', ''); },
-        discover: function() {
-          var cripto_mssg, r;
-          r = /http:\/\/localhost:4000\/(.+)/;
-          cypher = $(location)[0].href.match(r)[1];
-          password = this.getPassword();
-          message = CryptoJS.AES.decrypt(cypher, password).toString(CryptoJS.enc.Utf8)
-          this.setMessage(message);
-        }
-      };
+      var decoder = require('./decoder.js');
     </script>
     <script>
       $(document).ready (function(){
         $("#decrypt").on('click', function(a){
-          encoder.discover();
+          decoder.discover();
         });
       });
     </script>
