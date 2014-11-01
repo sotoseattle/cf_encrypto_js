@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Message Decoder</h1>
+    <p>This simple page lets you securely decrypt a message with a password.</p>
+    <p>Press the button to see the secret message.</p>
+    <textarea id="message" rows="6" cols="60"></textarea>
+    <br>
+    <button id="decrypt">Decrypt!</button>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" ></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/aes.js"></script>
+
+    <script src="/javascript/bundle.js"></script>
+    <script>
+      var decoder = require('./decoder.js');
+    </script>
+    <script>
+      $(document).ready (function(){
+        $("#decrypt").on('click', function(a){
+          decoder.discover();
+        });
+      });
+    </script>
+  </body>
+</html>
