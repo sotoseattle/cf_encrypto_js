@@ -1,8 +1,8 @@
-
+This is a CodeFellows exercise to learn the technologies involved.
 
 ### The server
 
-After trying with Node (with Express) I have decided to end up using a very thin Sinatra as a server.
+After trying with Node (with Express), I ended up using a very thin Sinatra server.
 
 ```ruby
 require 'sinatra'
@@ -22,7 +22,6 @@ end
 ```
 
 Only 3 routes, and 3 very simple associated views.
-
 Start the server like this:
 
 ```
@@ -35,10 +34,10 @@ I used CoffeeScript to code things and Grunt to compile them into two JS modules
 
 Browserify allows me to bundle them both for the client side. I keep both modules plus the bundle available at the public/javascript folder.
 
-It is important to note that when browserifying,
+It is important to note that when browserifying:
 
-1- you need to specify the flag -r to make be able to call the module object into your html.
-2- from where you browserify and where you create the bundle will determine how you call the require in terms of path.
+1. you need to specify the flag -r to make be able to call the module object into your html.
+2. from where you browserify and where you create the bundle will determine how you call the require in terms of path.
 
 The way I include the module inside the view is as follows:
 
@@ -49,9 +48,7 @@ The way I include the module inside the view is as follows:
 </script>
 ```
 
-To play with it, after having started your server in port 4567, got in the browser to 'http://localhost:4567/'
+To play with it, after having started your server in port 4567, point the browser to 'http://localhost:4567/'
 
-### The Tests
-
-I use Mocha with Chai and Grunt
+For tests I use Mocha with Chai and Grunt
 
